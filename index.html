@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>甜日蛋糕店 Sweet Day Cake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #fff7f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header {
+      background-color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: #e07a8b;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: #e07a8b;
+    }
+
+      .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: #333;
+      margin: 4px 0;
+      transition: 0.2s;
+    }
+
+       .hero {
+      padding: 40px 0 50px;
+    }
+
+    .hero-inner {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1 1 280px;
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.2s ease, color 0.2s ease,
+        transform 0.1s ease, box-shadow 0.1s ease;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background-color: #e07a8b;
+      color: white;
+      border-color: #e07a8b;
+    }
+
+    .btn-primary:hover {
+      background-color: #ce6476;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border-color: #aaa;
+      color: #555;
+    }
+
+    .btn-outline:hover {
+      border-color: #e07a8b;
+      color: #e07a8b;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-image {
+      flex: 1 1 260px;
+      text-align: center;
+    }
+
+    .hero-image img {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .hero-image img:hover {
+      transform: scale(1.02);
+    }
+
+       section {
+      padding: 40px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #777;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+       .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .about-list {
+      list-style: disc;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+       .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .card img {
+      border-radius: 8px;
+      height: 170px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background-color: #ffced7;
+      color: #a53951;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+      color: #555;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+
+       .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .small-text {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+       footer {
+      background-color: #333;
+      color: #fff;
+      padding: 12px 0;
+      font-size: 0.8rem;
+      margin-top: 20px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+     @media (max-width: 768px) {
+      .hero-inner {
+        flex-direction: column;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        font-size: 0.85rem;
+      }
+
+      .navbar {
+        flex-wrap: wrap;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 8px;
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <div class="container navbar">
+      <div class="logo">甜日蛋糕店 Sweet Day</div>
+      <button class="nav-toggle" id="navToggle" aria-label="切換導覽選單">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+            <ul class="nav-links" id="navLinks">
+        <li><a href="#about">關於我們</a></li>
+        <li><a href="#menu">主打蛋糕</a></li>
+        <li><a href="#contact">預訂</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1 class="hero-title">用一塊蛋糕，記住今天</h1>
+        <p class="hero-subtitle">
+          甜日蛋糕店主打少油少糖、每日手作的小蛋糕與客製生日蛋糕，
+          很適合學生聚會、生日派對和偷偷犒賞自己的下午茶。
+        </p>
+        <div class="hero-buttons">
+          <a href="#menu" class="btn-primary">查看主打品項</a>
+          <a href="#contact" class="btn-outline">填寫預訂表單</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="門口.jpg" alt="蛋糕店主視覺">
+      </div>
+    </div>
+  </section>
+
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">關於甜日蛋糕店</h2>
+      <p class="section-subtitle">
+        從大學生宿舍的烤箱開始，到現在小小的工作室，我們用最單純的材料做出能讓人微笑的甜點。
+      </p>
+
+      <div class="about-grid">
+        <div>
+          <img src="過程.jpg" alt="烘焙過程或店內照片">
+        </div>
+        <div>
+          <h3 style="margin-bottom: 8px;">我們的特色</h3>
+          <ul class="about-list">
+            <li>每天小量出爐，不賣隔夜蛋糕。</li>
+            <li>使用新鮮雞蛋、牛奶與鮮奶油，不使用氫化植物油。</li>
+            <li>提供客製生日蛋糕與公司會議茶點。</li>
+          </ul>
+          <p class="small-text">
+            * 本網站是期中報告，並不真實存在。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="container">
+      <h2 class="section-title">主打蛋糕</h2>
+      <p class="section-subtitle"></p>
+
+      <div class="cards">
+        <div class="card">
+          <img src="%E8%8D%89%E8%8E%93.jpg" alt="草莓鮮奶油蛋糕">
+          <div class="card-title">草莓鮮奶油蛋糕</div>
+          <span class="tag">人氣第一</span>
+          <p class="card-text">
+            綿密海綿蛋糕搭配當季草莓與輕盈鮮奶油，適合生日、紀念日與告白現場。
+          </p>
+          <div class="card-footer">
+            <strong>6 吋 NT$ 680</strong>
+            <span>需 3 天前預訂</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="巧克力.jpg" alt="濃黑巧克力蛋糕">
+          <div class="card-title">濃黑巧克力蛋糕</div>
+          <span class="tag">巧克力控最愛</span>
+          <p class="card-text">
+            使用 70% 黑巧克力與少量鮮奶油，口感紮實不會太甜，搭配黑咖啡完美。
+          </p>
+          <div class="card-footer">
+            <strong>6 吋 NT$ 720</strong>
+            <span>可加購生日牌</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="杯子蛋糕.jpg" alt="綜合杯子蛋糕">
+          <div class="card-title">綜合杯子蛋糕</div>
+          <span class="tag">學生聚會推薦</span>
+          <p class="card-text">
+            一盒六入，隨機搭配草莓、奶油與巧克力風味，適合分享與分送。
+          </p>
+          <div class="card-footer">
+            <strong>6 入 NT$ 360</strong>
+            <span>大量訂購可議價</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">預訂與聯絡</h2>
+      <p class="section-subtitle"></p>
+
+      <div class="contact-grid">
+        <form>
+          <div class="form-group">
+            <label for="name">姓名</label>
+            <input id="name" type="text" placeholder="請輸入您的姓名" />
+          </div>
+          <div class="form-group">
+            <label for="phone">聯絡電話</label>
+            <input id="phone" type="tel" placeholder="09xx-xxx-xxx" />
+          </div>
+          <div class="form-group">
+            <label for="cakeType">想預訂的蛋糕</label>
+            <select id="cakeType">
+              <option>請選擇</option>
+              <option>草莓鮮奶油蛋糕</option>
+              <option>濃黑巧克力蛋糕</option>
+              <option>綜合杯子蛋糕</option>
+              <option>其他（請在備註說明）</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">取貨日期</label>
+            <input id="date" type="date" />
+          </div>
+          <div class="form-group">
+            <label for="note">備註</label>
+            <textarea id="note" placeholder="例如：蠟燭幾根、寫上生日快樂、希望少甜一點…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">送出預訂需求</button>
+        </form>
+
+        <div>
+          <h3 style="margin-bottom: 8px;">店家資訊</h3>
+          <p>地址：高雄市楠梓區甜日路 1 號 1 樓</p>
+          <p>電話：07-1234-5678</p>
+          <p>營業時間：週二～週日 11:00 - 19:00（週一公休）</p>
+          <p class="small-text" style="margin-top: 10px;"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <footer>
+    <div class="container footer-inner">
+      <div>© 2025 甜日蛋糕店 Sweet Day Cake |</div>
+      <div>Made with HTML &amp; CSS</div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+  </script>
+</body>
+</html>
